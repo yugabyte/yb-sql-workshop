@@ -107,4 +107,45 @@ Next browse to http://IP_ADDRESS:3000 and continue with the installation. Rememb
 
 ## Queries to explore
 
+### Q1: How are users signing up for my e-commerce site?
+
+The `users` table has a `source` column which contains the channel from which the user was acquired. Let us find all the distinct values of this column. You can do so by running the following:
+```
+yb_demo=# SELECT DISTINCT(source) FROM users;
+  source
+-----------
+ Facebook
+ Twitter
+ Organic
+ Affiliate
+ Google
+(5 rows)
+```
+
+### Q2: What is the most effective channel for user signups?
+This requires finding out how many users signed up from each of the channels, and finding the channel that resulted in the maximum. We can do so by running a `GROUP BY` aggregation on the `source` column, and sorting in a descending fashion by the number of signups.
+```
+yb_demo=# SELECT source, count(*) AS num_user_signups FROM users GROUP BY source ORDER BY num_user_signups DESC;
+  source   | num_user_signups
+-----------+------------------
+ Facebook  |              512
+ Affiliate |              506
+ Google    |              503
+ Twitter   |              495
+ Organic   |              484
+(5 rows)
+```
+
+### Q3: What is the most effective channel for product sales by revenue?
+
+```
+yb_demo=# SELECT source, ROUND(SUM(orders.total)) AS total_sales FROM users, orders WHERE users.id=orders.user_id GROUP BY source ORDER BY total_sales DESC;
+  source  | total_sales
+----------+-------------
+ Facebook |        3468
+ Google   |        2331
+ Twitter  |        1660
+ Organic  |         568
+(4 rows)
+```
 
