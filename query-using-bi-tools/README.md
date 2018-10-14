@@ -34,7 +34,7 @@ We will first setup YugaByte DB, create the necessary tables, import sample data
 
 * [Download and install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/) by following these quick start instructions. Remember to enable the postgres API when creating the cluster:
 ```
-./bin/yb-ctl --create --enable_postgres
+./bin/yb-ctl create --enable_postgres
 ```
 
 * You should now be able to connect to the database by using `psql`:
