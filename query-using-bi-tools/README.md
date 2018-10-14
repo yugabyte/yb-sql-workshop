@@ -63,10 +63,44 @@ You are now connected to database "yb_demo" as user "postgres".
 yb_demo=#
 ```
 
+You can create the tables by running the `schema.sql` commands. You can find the `sample.sql` file in this directory. This will create the following 4 tables: `products`, `users`, `orders` and `reviews`.
+```
+yb_demo=# \i 'schema.sql'
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+```
 
 ### Step 3: Import the sample data
 
+There is some sample data in `sample-data.tgz` file in this directory. Untar it by running the following: 
+```
+$ tar zxvf sample-data.tgz
+```
+
+You should see the following files after it is untar'ed:
+```
+$ ls data/
+orders.sql  products.sql  reviews.sql  users.sql
+```
+
+Import the data by running the following:
+```
+yb_demo=# \i '/home/centos/metabase/data/products.sql
+yb_demo=# \i '/home/centos/metabase/data/users.sql
+yb_demo=# \i '/home/centos/metabase/data/orders.sql
+yb_demo=# \i '/home/centos/metabase/data/reviews.sql
+```
+
 ### Step 4: Install and setup Metabase
+
+[Download the Metabase jar](https://metabase.com/start/jar.html) and run it to install.
+```
+$ wget http://downloads.metabase.com/v0.30.4/metabase.jar
+$ java -jar metabase.jar
+```
+Next browse to http://IP_ADDRESS:3000 and continue with the installation. Remember to replace `IP_ADDRESS` with the ip address of your machine.
 
 ### Step 5: Point Metabase to the YugaByte DB table
 
