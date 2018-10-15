@@ -125,7 +125,10 @@ yb_demo=# SELECT DISTINCT(source) FROM users;
 ### Q2: What is the most effective channel for user signups?
 This requires finding out how many users signed up from each of the channels, and finding the channel that resulted in the maximum. We can do so by running a `GROUP BY` aggregation on the `source` column, and sorting in a descending fashion by the number of signups.
 ```
-yb_demo=# SELECT source, count(*) AS num_user_signups FROM users GROUP BY source ORDER BY num_user_signups DESC;
+yb_demo=# SELECT source, count(*) AS num_user_signups
+yb_demo-# FROM users
+yb_demo-# GROUP BY source
+yb_demo-# ORDER BY num_user_signups DESC;
   source   | num_user_signups
 -----------+------------------
  Facebook  |              512
@@ -139,7 +142,10 @@ yb_demo=# SELECT source, count(*) AS num_user_signups FROM users GROUP BY source
 ### Q3: What is the most effective channel for product sales by revenue?
 
 ```
-yb_demo=# SELECT source, ROUND(SUM(orders.total)) AS total_sales FROM users, orders WHERE users.id=orders.user_id GROUP BY source ORDER BY total_sales DESC;
+yb_demo=# SELECT source, ROUND(SUM(orders.total)) AS total_sales
+yb_demo-# FROM users, orders WHERE users.id=orders.user_id
+yb_demo-# GROUP BY source
+yb_demo-# ORDER BY total_sales DESC;
   source  | total_sales
 ----------+-------------
  Facebook |        3468
@@ -149,3 +155,12 @@ yb_demo=# SELECT source, ROUND(SUM(orders.total)) AS total_sales FROM users, ord
 (4 rows)
 ```
 
+### Q4: What is the min, max and average price of products in the store?
+
+```
+yb_demo=# SELECT MIN(price), MAX(price), AVG(price) FROM products;
+       min        |       max        |       avg
+------------------+------------------+------------------
+ 15.6919436739704 | 98.8193368436819 | 55.7463996679207
+(1 row)
+```
