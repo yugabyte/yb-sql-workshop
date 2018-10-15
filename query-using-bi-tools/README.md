@@ -114,9 +114,9 @@ yb_demo=# SELECT DISTINCT(source) FROM users;
 This requires finding out how many users signed up from each of the channels, and finding the channel that resulted in the maximum. We can do so by running a `GROUP BY` aggregation on the `source` column, and sorting in a descending fashion by the number of signups.
 ```
 yb_demo=# SELECT source, count(*) AS num_user_signups
-yb_demo-# FROM users
-yb_demo-# GROUP BY source
-yb_demo-# ORDER BY num_user_signups DESC;
+          FROM users
+          GROUP BY source
+          ORDER BY num_user_signups DESC;
   source   | num_user_signups
 -----------+------------------
  Facebook  |              512
@@ -131,9 +131,9 @@ yb_demo-# ORDER BY num_user_signups DESC;
 
 ```
 yb_demo=# SELECT source, ROUND(SUM(orders.total)) AS total_sales
-yb_demo-# FROM users, orders WHERE users.id=orders.user_id
-yb_demo-# GROUP BY source
-yb_demo-# ORDER BY total_sales DESC;
+          FROM users, orders WHERE users.id=orders.user_id
+          GROUP BY source
+          ORDER BY total_sales DESC;
   source  | total_sales
 ----------+-------------
  Facebook |        3468
