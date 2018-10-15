@@ -9,21 +9,13 @@ You can perform all the exercises below on a single mac or linux machine. A lapt
 * JDK version 1.8+
 
 
-## Exercise 1: Load sample data and perform queries
+## [Exercise 1](query-using-bi-tools): Load sample data and perform queries
 
-This exercise will explore RDBMS-like query support in YugaByte DB PostgreSQL. It emulates the example of an ecommerce site. We will create the following tables and load them with meaningful, sample data:
-* products : this table has details about the various products on the site
-* users : the various users of the site that can buy products
-* orders : the orders representing the product purchases the users have performed
-* reviews : reviews about products written by various people
-
-We will then use the SQL query functionality of YugaByte DB to answer some questions about the ecommerce site. This in turn will require RDBMS-like query capabilities, for example:
+This exercise will explore RDBMS-like query support in YugaByte DB PostgreSQL. We will use the SQL query functionality of YugaByte DB to answer some questions about the ecommerce site. This in turn will require RDBMS-like query capabilities, for example:
 * Filter data using WHERE clauses
 * Join data between tables
 * Perform data aggregation using GROUP BY
 * Use built-in functions such as SUM, MIN, MAX, etc.
-
-Optionally, we will point a business intelligence (often abbreviated to just BI) tool to visualize some of this information. We will use Metabase, which is an open-source visual BI tool. Metabase is:
 
 ## Exercise 2: Understand architecture of distributed SQL in YugaByte DB
 
@@ -32,7 +24,13 @@ This exercise is a presentation where we will dive into how YugaByte DB internal
 * Writing data
 * Handling SQL queries
 
-## Exercise 3: Understanding sharding and scale out with a SQL workload
+## [Exercise 3](https://docs.yugabyte.com/latest/explore/): Understanding sharding and scale out with a SQL workload
 
-## Exercise 4: Understanding fault tolerance with a SQL workload
+In this exercise, we will look at how YugaByte DB internally shards data which enables it to scale. We will run a simple read-write SQL workload using a pre-packaged sample application against a 3-node local cluster with a replication factor of 3. We will then add nodes to it while the workload is running. We will then observe how the cluster scales out, by verifying that the number of read/write IOPS are evenly distributed across all the nodes at all times.
+
+
+## [Exercise 4](https://docs.yugabyte.com/latest/explore/): Understanding fault tolerance with a SQL workload
+
+YugaByte DB can automatically handle failures and therefore provides high availability for PostgreSQL (as well as Redis and Cassandra) tables. In this exercise, we will look at how fault tolerance is achieved. As before, we will run a simple read-write SQL workload using a pre-packaged sample application against a local cluster with a replication factor of 3. We will then simulate a node failure and make sure we are able to successfully query and write data after the failures. We will also look at how YugaByte DB automatically re-replicates data.
+
 
