@@ -10,13 +10,13 @@ This exercise emulates the example of an ecommerce site. We will create the foll
 * orders   : the orders representing the product purchases the users have performed
 * reviews  : reviews about products written by various people
 
-We will then use the SQL query functionality of YugaByte DB to power business intelligence (often abbreviated to just *BI*) tools. Most BI tools rely on a wide range of query functionality from the underlying database. Here we will answer some questions about the ecommerce site, which in turn will require the following:
+We will then use the SQL query functionality of YugaByte DB to answer some questions about the ecommerce site. This in turn will require RDBMS-like query capabilities, for example:
 * Filter data using `WHERE` clauses
 * Join data between tables
 * Perform data aggregation using `GROUP BY`
 * Use built-in functions such as `SUM`, `MIN`, `MAX`, etc.
 
-We will use [Metabase](https://github.com/metabase/metabase), which is an open-source visual BI tool. Metabase is:
+Optionally, we will point a business intelligence (often abbreviated to just *BI*) tool to visualize some of this information. We will use [Metabase](https://github.com/metabase/metabase), which is an open-source visual BI tool. Metabase is:
 > The simplest, fastest way to get business intelligence and analytics to everyone in your company.
 
 ## Pre-requisites
@@ -93,18 +93,6 @@ yb_demo=# \i '/home/centos/metabase/data/orders.sql
 yb_demo=# \i '/home/centos/metabase/data/reviews.sql
 ```
 
-### Step 4: Install and setup Metabase
-
-[Download the Metabase jar](https://metabase.com/start/jar.html) and run it to install.
-```
-$ wget http://downloads.metabase.com/v0.30.4/metabase.jar
-$ java -jar metabase.jar
-```
-Next browse to http://IP_ADDRESS:3000 and continue with the installation. Remember to replace `IP_ADDRESS` with the ip address of your machine.
-
-### Step 5: Point Metabase to the YugaByte DB table
-
-
 ## Queries to explore
 
 ### Q1: How are users signing up for my e-commerce site?
@@ -164,3 +152,23 @@ yb_demo=# SELECT MIN(price), MAX(price), AVG(price) FROM products;
  15.6919436739704 | 98.8193368436819 | 55.7463996679207
 (1 row)
 ```
+
+## Using a BI tool (optional)
+
+### Install and setup Metabase
+
+[Download the Metabase jar](https://metabase.com/start/jar.html) and run it to install.
+```
+$ wget http://downloads.metabase.com/v0.30.4/metabase.jar
+$ java -jar metabase.jar
+```
+Next browse to http://IP_ADDRESS:3000 and continue with the installation. Remember to replace `IP_ADDRESS` with the ip address of your machine.
+
+### Point Metabase to the YugaByte DB table
+
+You can do so by browsing to the admin page and clicking on the database tab. Here, you can set up a PostgreSQL database and point it at the YugaByte DB cluster we created above.
+
+### Visualize queries
+
+You can click on `Ask a Question` -> `Custom Query`. Choose the database we just setup, and enter the SQL query above into the editor.
+
