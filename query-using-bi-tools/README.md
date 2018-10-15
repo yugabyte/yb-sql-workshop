@@ -53,7 +53,13 @@ postgres=#
 
 ### Step 2: Create the necessary database and tables
 
-
+Create the necessary database with the `CREATE DATABASE` command.
+```
+postgres=# CREATE DATABASE yb_demo;
+CREATE DATABASE
+postgres=# GRANT ALL ON DATABASE yb_demo to postgres;
+GRANT
+```
 
 Connect to the `yb_demo` database we just created.
 ```
