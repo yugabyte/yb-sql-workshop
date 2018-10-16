@@ -80,14 +80,18 @@ CREATE TABLE
 CREATE TABLE
 ```
 
+Open the YugaByte DB cluster page by browsing to http://localhost:7000/ and explore these tables.
+
 ### Step 3: Import the sample data
+
+Browse to the tablet servers page http://localhost:7000/tablet-servers to see the data getting loaded.
 
 Import the data by running the following:
 ```
-yb_demo=# \i '/home/centos/metabase/data/products.sql'
-yb_demo=# \i '/home/centos/metabase/data/users.sql'
-yb_demo=# \i '/home/centos/metabase/data/orders.sql'
-yb_demo=# \i '/home/centos/metabase/data/reviews.sql'
+yb_demo=# \i 'data/products.sql'
+yb_demo=# \i 'data/users.sql'
+yb_demo=# \i 'data/orders.sql'
+yb_demo=# \i 'data/reviews.sql'
 ```
 
 ## Queries to explore
@@ -131,13 +135,14 @@ yb_demo=# SELECT source, ROUND(SUM(orders.total)) AS total_sales
           FROM users, orders WHERE users.id=orders.user_id
           GROUP BY source
           ORDER BY total_sales DESC;
-  source  | total_sales
-----------+-------------
- Facebook |        3468
- Google   |        2331
- Twitter  |        1660
- Organic  |         568
-(4 rows)
+  source   | total_sales
+-----------+-------------
+ Facebook  |      333454
+ Google    |      325184
+ Organic   |      319637
+ Twitter   |      319449
+ Affiliate |      297605
+(5 rows)
 ```
 
 ### Q4: What is the min, max and average price of products in the store?
@@ -147,6 +152,42 @@ yb_demo=# SELECT MIN(price), MAX(price), AVG(price) FROM products;
        min        |       max        |       avg
 ------------------+------------------+------------------
  15.6919436739704 | 98.8193368436819 | 55.7463996679207
+(1 row)
+```
+
+### Q5: What percentage of the total sales is from the Facebook channel?
+
+Let us create a view to answer this question.
+```
+yb_demo=# CREATE VIEW channel AS
+            (SELECT source, ROUND(SUM(orders.total)) AS total_sales
+             FROM users, orders
+             WHERE users.id=orders.user_id
+             GROUP BY source
+             ORDER BY total_sales DESC);
+CREATE VIEW
+```
+You can see the view as follows:
+```
+yb_demo=# \d
+          List of relations
+ Schema |   Name   | Type  |  Owner
+--------+----------+-------+----------
+ public | channel  | view  | postgres
+ public | orders   | table | postgres
+ public | products | table | postgres
+ public | reviews  | table | postgres
+ public | users    | table | postgres
+(5 rows)
+```
+
+Now we can find the percentage by running the following:
+```
+yb_demo=# SELECT source, total_sales * 100.0 / (SELECT SUM(total_sales) FROM channel) AS percent_sales
+          FROM channel WHERE source='Facebook';
+  source  |  percent_sales
+----------+------------------
+ Facebook | 20.9018954710909
 (1 row)
 ```
 
