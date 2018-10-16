@@ -26,7 +26,7 @@ $ cd yb-sql-workshop
 
   * Mac OSX
   ```
-  wget yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
+  wget https://s3-us-west-2.amazonaws.com/snapshots.yugabyte.com/yugabyte/yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
   tar zxvf yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
   ```
 
