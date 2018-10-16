@@ -23,18 +23,20 @@ $ cd yb-sql-workshop
 ```
 
 * Install YugaByte DB You can download YugaByte DB binaries as follows:
-  * Mac OSX
-```
-wget yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
-tar zxvf yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
-```
-  * Linux
-```
-wget ???
-tar zxvf ???
-```
 
-Install and create a new cluster with PostgreSQL enabled.
+  * Mac OSX
+  ```
+  wget yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
+  tar zxvf yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
+  ```
+
+  * Linux
+  ```
+  wget ???
+  tar zxvf ???
+  ```
+
+* Install and create a new cluster with PostgreSQL enabled.
 ```
 ./yugabyte-1.1.2.0/bin/yb-ctl create --enable_postgres
 ```
