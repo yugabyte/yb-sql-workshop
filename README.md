@@ -39,8 +39,21 @@ $ cd yb-sql-workshop
   tar xvfz yugabyte-ce-1.1.2.0-linux.tar.gz && cd yugabyte-1.1.2.0/
   ./bin/post_install.sh
   ```
+To finish install, may need to set the open files ulimit to a larger value.
+Check the current value with:
+```
+ulimit -n
+```
+If the value is small (e.g. `256`) do: 
+```
+ulimits -n 10000
+```
+Check that the value has been updated with: 
+```
+ulimits -n 
+```
 
-* Install and create a new cluster with PostgreSQL enabled.
+* Create a new cluster with PostgreSQL enabled.
 ```
 ./bin/yb-ctl create --enable_postgres
 ```
