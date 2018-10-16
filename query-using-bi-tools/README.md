@@ -73,7 +73,7 @@ yb_demo=#
 
 You can create the tables by running the `schema.sql` commands. You can find the `sample.sql` file in this directory. This will create the following 4 tables: `products`, `users`, `orders` and `reviews`.
 ```
-yb_demo=# \i 'schema.sql'
+yb_demo=# \i 'query-using-bi-tools/schema.sql'
 CREATE TABLE
 CREATE TABLE
 CREATE TABLE
