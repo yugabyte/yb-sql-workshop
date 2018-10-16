@@ -8,6 +8,11 @@ You can perform all the exercises below on a single mac or linux machine. A lapt
 
 * JDK version 1.8+
 
+* Download this repo. Alternatively, you can clone this repository by running:
+```
+git clone git@github.com:YugaByte/yb-sql-workshop.git
+```
+
 
 ## [Exercise 1](query-using-bi-tools): Load sample data and perform queries
 
