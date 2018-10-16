@@ -6,13 +6,55 @@ This repo contains the requisite material for YugaByte DB PostgreSQL workshop.
 
 You can perform all the exercises below on a single mac or linux machine. A laptop or desktop would be fine since we are not focused on high throughput. You would need the following installed on the machine:
 
-* JDK version 1.8+
+### Install JDK version 1.8+
 
-* Download this repo. Alternatively, you can clone this repository by running:
+
+### Download this repo.
+You can download the zip directory as follows:
+```
+wget https://github.com/YugaByte/yb-sql-workshop/archive/master.zip
+unzip master.zip
+```
+Alternatively, you can clone this repository by running:
 ```
 git clone git@github.com:YugaByte/yb-sql-workshop.git
 ```
+Change your working directory to the repo, this will be our working space.
+```
+$ cd yb-sql-workshop
+```
 
+### Install YugaByte DB
+You can download YugaByte DB binaries as follows:
+* Mac OSX
+```
+wget yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
+tar zxvf yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
+```
+* Linux
+```
+wget ???
+tar zxvf ???
+```
+
+Install and create a new cluster with PostgreSQL enabled.
+```
+./yugabyte-1.1.2.0/bin/yb-ctl create --enable_postgres
+```
+
+* You should now be able to connect to the database by using `psql`:
+```
+./yugabyte-1.1.2.0/bin/psql -p 5433 -U postgres
+```
+
+You should see a prompt as follows:
+```
+$ ./yugabyte-1.1.2.0/bin/psql -p 5433 -U postgres
+psql (10.3, server 10.4)
+Type "help" for help.
+
+postgres=#
+```
 
 ## [Exercise 1](query-using-bi-tools): Load sample data and perform queries
 
