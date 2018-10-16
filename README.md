@@ -24,37 +24,39 @@ $ cd yb-sql-workshop
 
 * Install YugaByte DB You can download YugaByte DB binaries as follows:
 
-  * Mac OSX
+  * macOS X
   ```
-  wget https://github.com/YugaByte/yb-sql-workshop/releases/download/v1.1.2/yugabyte-ce-1.1.2.0-darwin-postgres.tar.gz
-  tar zxvf yugabyte-ce-1.1.2.0-darwin-postgres.tar.gz
+  wget https://downloads.yugabyte.com/yugabyte-ce-1.1.2.0-darwin.tar.gz
+  tar xvfz yugabyte-ce-1.1.2.0-darwin.tar.gz && cd yugabyte-1.1.2.0/
   ```
 
   * Linux
   ```
-  wget https://github.com/YugaByte/yb-sql-workshop/releases/download/v1.1.2/yugabyte-ce-1.1.2.0-centos-postgres.tar.gz
-  tar zxvf yugabyte-ce-1.1.2.0-centos-postgres.tar.gz
-  ./yugabyte-1.1.2.0/bin/post_install.sh
+  wget https://downloads.yugabyte.com/yugabyte-ce-1.1.2.0-linux.tar.gz
+  tar xvfz yugabyte-ce-1.1.2.0-linux.tar.gz && cd yugabyte-1.1.2.0/
+  ./bin/post_install.sh
   ```
 
 * Install and create a new cluster with PostgreSQL enabled.
 ```
-./yugabyte-1.1.2.0/bin/yb-ctl create --enable_postgres
+./bin/yb-ctl create --enable_postgres
 ```
 
 * You should now be able to connect to the database by using `psql`:
 ```
-./yugabyte-1.1.2.0/bin/psql -p 5433 -U postgres
+./bin/psql -p 5433 -U postgres
 ```
 
 You should see a prompt as follows:
 ```
-$ ./yugabyte-1.1.2.0/bin/psql -p 5433 -U postgres
+$ ./bin/psql -p 5433 -U postgres
 psql (10.3, server 10.4)
 Type "help" for help.
 
 postgres=#
 ```
+
+You can test the YugaByte DB PostgreSQL API using the steps listed [here](https://docs.yugabyte.com/latest/quick-start/test-postgresql/).
 
 ## [Exercise 1](query-using-bi-tools): Load sample data and perform queries
 
@@ -71,12 +73,12 @@ This exercise is a presentation where we will dive into how YugaByte DB internal
 * Writing data
 * Handling SQL queries
 
-## [Exercise 3](https://docs.yugabyte.com/latest/explore/): Understanding sharding and scale out with a SQL workload
+## [Exercise 3](https://docs.yugabyte.com/latest/explore/postgresql/linear-scalability/): Understanding sharding and scale out with a SQL workload
 
-In this exercise, we will look at how YugaByte DB internally shards data which enables it to scale. We will run a simple read-write SQL workload using a pre-packaged sample application against a 3-node local cluster with a replication factor of 3. We will then add nodes to it while the workload is running. We will then observe how the cluster scales out, by verifying that the number of read/write IOPS are evenly distributed across all the nodes at all times.
+In this exercise, we will look at how YugaByte DB internally shards data which enables it to scale. We will run a simple read-write SQL workload using a pre-packaged sample application against a 3-node local cluster with a replication factor of 3. We will then add nodes to it while the workload is running. We will then observe how the cluster scales out, by verifying that the number of read/write IOPS are evenly distributed across all the nodes at all times. We will finally scale the cluster back in to 3 nodes.
 
 
-## [Exercise 4](https://docs.yugabyte.com/latest/explore/): Understanding fault tolerance with a SQL workload
+## [Exercise 4](https://docs.yugabyte.com/latest/explore/postgresql/fault-tolerance/): Understanding fault tolerance with a SQL workload
 
 YugaByte DB can automatically handle failures and therefore provides high availability for PostgreSQL (as well as Redis and Cassandra) tables. In this exercise, we will look at how fault tolerance is achieved. As before, we will run a simple read-write SQL workload using a pre-packaged sample application against a local cluster with a replication factor of 3. We will then simulate a node failure and make sure we are able to successfully query and write data after the failures. We will also look at how YugaByte DB automatically re-replicates data.
 
