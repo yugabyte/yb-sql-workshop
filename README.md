@@ -28,6 +28,9 @@ $ cd yb-sql-workshop
   ```
   wget https://downloads.yugabyte.com/yugabyte-ce-1.1.2.0-darwin.tar.gz
   tar xvfz yugabyte-ce-1.1.2.0-darwin.tar.gz && cd yugabyte-1.1.2.0/
+  sudo ifconfig lo0 alias 127.0.0.2
+  sudo ifconfig lo0 alias 127.0.0.3
+  sudo ifconfig lo0 alias 127.0.0.4
   ```
 
   * Linux
