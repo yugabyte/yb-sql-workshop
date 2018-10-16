@@ -26,14 +26,15 @@ $ cd yb-sql-workshop
 
   * Mac OSX
   ```
-  wget https://s3-us-west-2.amazonaws.com/snapshots.yugabyte.com/yugabyte/yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
-  tar zxvf yugabyte-ce-1.1.2.0-mihnea-test-2-release-darwin-x86_64.tar.gz
+  wget https://github.com/YugaByte/yb-sql-workshop/releases/download/v1.1.2/yugabyte-ce-1.1.2.0-darwin-postgres.tar.gz
+  tar zxvf yugabyte-ce-1.1.2.0-darwin-postgres.tar.gz
   ```
 
   * Linux
   ```
-  wget ???
-  tar zxvf ???
+  wget https://github.com/YugaByte/yb-sql-workshop/releases/download/v1.1.2/yugabyte-ce-1.1.2.0-centos-postgres.tar.gz
+  tar zxvf yugabyte-ce-1.1.2.0-centos-postgres.tar.gz
+  ./yugabyte-1.1.2.0/bin/post_install.sh
   ```
 
 * Install and create a new cluster with PostgreSQL enabled.
