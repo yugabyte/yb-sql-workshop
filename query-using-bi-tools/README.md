@@ -30,25 +30,27 @@ You need the following in order to complete this exercise:
 
 We will first setup YugaByte DB, create the necessary tables, import sample data and then setup Metabase to use these tables and show us some analytics.
 
-### Step 1: Install YugaByte DB
+### Step 1: Untar the necessary files
 
-* [Download and install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/) by following these quick start instructions. Remember to enable the postgres API when creating the cluster:
+We will work off the base working directory as shown below.
 ```
-./bin/yb-ctl create --enable_postgres
-```
-
-* You should now be able to connect to the database by using `psql`:
-```
-bin/psql -p 5433 -U postgres
+$ cd yb-sql-workshop
 ```
 
-You should see a prompt as follows:
+There is some sample data in `sample-data.tgz` file in this directory. Untar it by running the following:
 ```
-$ bin/psql -p 5433 -U postgres
-psql (10.3, server 10.4)
-Type "help" for help.
+tar zxvf query-using-bi-tools/sample-data.tgz
+```
 
-postgres=#
+You should now see the data files as follows.
+```
+$ ls data/
+orders.sql	products.sql	reviews.sql	users.sql
+```
+
+Connect to postgres shell.
+```
+./yugabyte-1.1.2.0/bin/psql -p 5433 -U postgres
 ```
 
 ### Step 2: Create the necessary database and tables
@@ -80,23 +82,12 @@ CREATE TABLE
 
 ### Step 3: Import the sample data
 
-There is some sample data in `sample-data.tgz` file in this directory. Untar it by running the following: 
-```
-$ tar zxvf sample-data.tgz
-```
-
-You should see the following files after it is untar'ed:
-```
-$ ls data/
-orders.sql  products.sql  reviews.sql  users.sql
-```
-
 Import the data by running the following:
 ```
-yb_demo=# \i '/home/centos/metabase/data/products.sql
-yb_demo=# \i '/home/centos/metabase/data/users.sql
-yb_demo=# \i '/home/centos/metabase/data/orders.sql
-yb_demo=# \i '/home/centos/metabase/data/reviews.sql
+yb_demo=# \i '/home/centos/metabase/data/products.sql'
+yb_demo=# \i '/home/centos/metabase/data/users.sql'
+yb_demo=# \i '/home/centos/metabase/data/orders.sql'
+yb_demo=# \i '/home/centos/metabase/data/reviews.sql'
 ```
 
 ## Queries to explore
