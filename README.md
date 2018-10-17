@@ -82,7 +82,7 @@ This exercise will explore RDBMS-like query support in YugaByte DB PostgreSQL. W
 * Perform data aggregation using GROUP BY
 * Use built-in functions such as SUM, MIN, MAX, etc.
 
-## Exercise 2: Understand architecture of distributed SQL in YugaByte DB
+## [Exercise 2](https://www.slideshare.net/YugaByte/how-yugabyte-db-implements-distributed-postgresql): Understand architecture of distributed SQL in YugaByte DB
 
 This exercise is a presentation where we will dive into how YugaByte DB internally handles sharding, replication, persistence and global ACID transactions while offering fault tolerance and the ability to scale out by adding nodes. We will map this architecture to how the following happen:
 * Creating a table
