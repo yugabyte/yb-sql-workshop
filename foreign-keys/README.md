@@ -4,7 +4,7 @@ The filenames are self-explanatory. Look at them first, in this order:
 This does the DDLs. It first drops `if exists` the four tables that implement the tescase (`customers`, `items`, `orders`, and `order_lines`) and then creates them, together with their supporting objects.
 
 ### populate_tables.sql
-This inserts a small, but suffieiently illustrative, number of rows into each of the tables.
+This inserts a small, but sufficiently illustrative, number of rows into each of the tables.
 
 ### queries.sql
 This demonstrates the `select` statements shown in the blog post, finishing with a `group by` based on an inner join of all the four tables.
