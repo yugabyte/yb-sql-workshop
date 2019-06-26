@@ -1,7 +1,7 @@
 The filenames are self-explanatory. Look at them first, in this order:
 
 ### cr_tables.sql
-This does the DDLs. It first drops "if exists" the four tables that implement the tescase (`customers`, `items`, `orders`, and `order_lines`) and then creates them, together with their supporting objects.
+This does the DDLs. It first drops `if exists` the four tables that implement the tescase (`customers`, `items`, `orders`, and `order_lines`) and then creates them, together with their supporting objects.
 
 ### populate_tables.sql
 This inserts a small, but suffieiently illustrative, number of rows into each of the tables.
