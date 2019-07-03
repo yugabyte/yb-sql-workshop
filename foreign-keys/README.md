@@ -1,6 +1,4 @@
-This code zip accompanies the blog post ["Relational Data Modeling with Foreign Keys in a Distributed SQL Database"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post as the external documentation for this code.
-
-The filenames are self-explanatory. Look at them first, in this order:
+This code zip accompanies the blog post ["Relational Data Modeling with Foreign Keys in a Distributed SQL Database"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post as the external documentation for this code. The filenames are self-explanatory. Look at them first, in this order:
 
 ### cr_tables.sql
 This does the DDLs. It first drops `if exists` the four tables that implement the tescase (`customers`, `items`, `orders`, and `order_lines`) and then creates them, together with their supporting objects.
