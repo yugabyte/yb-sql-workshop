@@ -1,3 +1,5 @@
+This code zip accompanies the blog post ["Relational Data Modeling with Foreign Keys in a Distributed SQL Database"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post as the external documentation for this code.
+
 The filenames are self-explanatory. Look at them first, in this order:
 
 ### cr_tables.sql
