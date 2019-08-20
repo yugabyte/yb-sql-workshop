@@ -1,5 +1,5 @@
 This code zip accompanies the blog post
-["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements. Here is how the code is organized, and what it does.
+["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements.
 
 # How the code is organized
 To avoid repeating code, I implemented everything to do with session management and SQL processing in a single module, `common.py`. It looks after the following.
