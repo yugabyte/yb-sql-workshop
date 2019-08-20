@@ -1,5 +1,5 @@
 This code zip accompanies the blog post
-["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements.
+["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements. Unzip it on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory.
 
 # How the code is organized
 To avoid repeating code, I implemented everything to do with session management and SQL processing in a single module, `common.py`. It looks after the following.
@@ -19,6 +19,10 @@ The common module’s API has procedures to create a session and return a handle
 There are therefore three Python source files that include `common.py`: `black_white_marbles.py`, `one_or_two_admins.py`, and `basic_tests.py`.
 
 Each use-case-specific module has command-line options to specify the isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases.
+
+I used the
+[PyCharm Python IDE (Community Edition)[(https://www.jetbrains.com/pycharm/download/#section=mac)
+to write my code. You might have your favorite IDE. I do recommend an IDE over `vi` or similar. A code-folding feature makes it hugely easier to navigate and to understand your code—and especially to study someone else's code.
 
 # How to run the programs
 
