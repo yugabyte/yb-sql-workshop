@@ -3,7 +3,9 @@ This code zip accompanies the blog post
 
 Enjoy! [bryn@yugabyte.com](mailto:bryn@yugabyte.com)
 
-# How the code is organized
+# The Python programs
+
+## How the code is organized
 To avoid repeating code, I implemented everything to do with session management and SQL processing in a single module, `common.py`. It looks after the following.
 
 * Session creation and termination.
@@ -22,7 +24,7 @@ There are therefore three Python source files that include `common.py`: `black_w
 
 Each use-case-specific module has command-line options to specify the isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases.
 
-# How to run the programs
+## How to run the programs
 
 I did all my tesing on my MacBook using macOS Mojave Version 10.14.6. And I used YugaByte DB Version 1.3.1. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
 [Quick Start guide](https://docs.yugabyte.com/latest/quick-start/install/).
@@ -37,7 +39,7 @@ I used the
 [PyCharm Python IDE (Community Edition)](https://www.jetbrains.com/pycharm/download/#section=mac)
 to write my code. You might have your favorite IDE. I do recommend an IDE over `vi` or similar. A code-folding feature makes it hugely easier to navigate and to understand your code—and especially to study someone else's code.
 
-## Install the argparse module
+### Install the argparse module
 
 Install the argparse module using the following command.
 ```
@@ -45,13 +47,13 @@ pip install argparse
 ```
 Run this either at the o/s prompt or at the prompt of your virtual Python environment, if that's the way you work.
 
-## Install the psycopg2 driver
+### Install the psycopg2 driver
 
 Install the python PostgreSQL driver using the following command. You can get further details for the driver [here](https://pypi.org/project/psycopg2/). Notice that it says "Psycopg 2 is both Unicode and Python 3 friendly." 
 ```
 pip install psycopg2-binary
 ```
-## Sanity check
+### Sanity check
 
 Notice the file `run_all.sh`. Either `cat` it or open it in your favorite text editor. Here's what it contains:
 ```
@@ -92,6 +94,8 @@ source run_all.sh
 ```
 You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL command) is chosen randomly. Expect diffs the `yb_srl` variants—but understand that they have no semantic significance.
 
-## About AUTOCOMMIT
+## About `AUTOCOMMIT`
 
 Need to explain why I chose to set `AUTOCOMMIT` to `On` — and about the general principle always to invoke the `start transaction` command explicitly.
+
+# The tests done at the `ysqlsh` prompt
