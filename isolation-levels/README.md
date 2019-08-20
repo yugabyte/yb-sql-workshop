@@ -22,4 +22,25 @@ Each use-case-specific module has command-line options to specify the isolation 
 
 # How to run the programs
 
-Bla
+I did all my tesing on my MacBook using macOS Mojave Version 10.14.6. And I used YugaByte DB Version 1.3.1. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
+[Quick Start guide](https://docs.yugabyte.com/latest/quick-start/quick-start/explore-ysql/).
+
+Some experience of writing and running Python programs will help you, but you have to understand very little just to run my programs. I used I used Python 3 to develop and to test my programs. Check which version you have thus:
+```
+python --version
+```
+My programs *should* work with Python 2—but I didn't test this.
+
+## Install the argparse module
+
+Install the argparse module using the following command.
+```
+pip install argparse
+```
+## Install the psycopg2 driver
+
+Install the python PostgreSQL driver using the following command. You can get further details for the driver [here](qq). Notice that it says "Psycopg 2 is both Unicode and Python 3 friendly." 
+```
+pip install psycopg2-binary
+```
+
