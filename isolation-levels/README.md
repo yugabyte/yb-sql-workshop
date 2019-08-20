@@ -41,6 +41,8 @@ Install the argparse module using the following command.
 ```
 pip install argparse
 ```
+Run this either at the o/s prompt or at the prompt of your virtual Python environment, if that's the way you work.
+
 ## Install the psycopg2 driver
 
 Install the python PostgreSQL driver using the following command. You can get further details for the driver [here](https://pypi.org/project/psycopg2/). Notice that it says "Psycopg 2 is both Unicode and Python 3 friendly." 
