@@ -53,7 +53,7 @@ pip install psycopg2-binary
 ```
 ## Sanity check
 
-Notice the file `run_all.sh`. Eith `cat` it or open it in your favorite text editor. Here's what it contains:
+Notice the file `run_all.sh`. Either `cat` it or open it in your favorite text editor. Here's what it contains:
 ```
 # ------------------------------------------------------------------------------------------
 # The "black/white marbles" scenario
@@ -86,4 +86,8 @@ python basic_tests.py --db=yb --lvl=srl --c_unq=y > basic_tests_output/yb_srl_c_
 python basic_tests.py --db=pg --lvl=snp --c_unq=y > basic_tests_output/pg_snp_c_unq.txt
 python basic_tests.py --db=pg --lvl=srl --c_unq=y > basic_tests_output/pg_srl_c_unq.txt
 ```
-This will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided rerference copies of the output on subdirectories of these directories. You should find that, with one caveat, each file that you generate will be identical to the supplied reference copy. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL command) is chosen randomly. Expect diffs the `yb_srl` variants—but understand that they have no semantic significance.
+This will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided rerference copies of the output on subdirectories of these directories. Run it with the following command:
+```
+source run_all.sh
+```
+You should find that, with one caveat, each file that you generate will be identical to the supplied reference copy. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL command) is chosen randomly. Expect diffs the `yb_srl` variants—but understand that they have no semantic significance.
