@@ -91,3 +91,7 @@ This will exercise every combination of the degrees of freedom that each of my t
 source run_all.sh
 ```
 You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL command) is chosen randomly. Expect diffs the `yb_srl` variants—but understand that they have no semantic significance.
+
+## About AUTOCOMMIT
+
+Need to explain why I chose to set `AUTOCOMMIT` to `On` — and about the general principle always to invoke the `start transaction` command explicitly.
