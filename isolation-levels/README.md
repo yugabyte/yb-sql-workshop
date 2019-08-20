@@ -57,7 +57,7 @@ Notice the file `run_all.sh`. Eith `cat` it or open it in your favorite text edi
 ```
 # ------------------------------------------------------------------------------------------
 # The "black/white marbles" scenario
-# -----------------------------------
+# ----------------------------------
 python black_white_marbles.py --db=yb --lvl=snp > black_white_marbles_output/yb_snp.txt
 python black_white_marbles.py --db=yb --lvl=srl > black_white_marbles_output/yb_srl.txt
 python black_white_marbles.py --db=pg --lvl=snp > black_white_marbles_output/pg_snp.txt
@@ -66,7 +66,7 @@ python black_white_marbles.py --db=pg --lvl=srl > black_white_marbles_output/pg_
 
 # ------------------------------------------------------------------------------------------
 # The "one or two admins" scenario
-# ----------------------------------
+# --------------------------------
 python one_or_two_admins.py --db=yb --lvl=snp > one_or_two_admins_output/yb_snp.txt
 python one_or_two_admins.py --db=yb --lvl=srl > one_or_two_admins_output/yb_srl.txt
 python one_or_two_admins.py --db=pg --lvl=snp > one_or_two_admins_output/pg_snp.txt
@@ -86,3 +86,4 @@ python basic_tests.py --db=yb --lvl=srl --c_unq=y > basic_tests_output/yb_srl_c_
 python basic_tests.py --db=pg --lvl=snp --c_unq=y > basic_tests_output/pg_snp_c_unq.txt
 python basic_tests.py --db=pg --lvl=srl --c_unq=y > basic_tests_output/pg_srl_c_unq.txt
 ```
+This will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided rerference copies of the output on subdirectories of these directories. You should find that, with one caveat, each file that you generate will be identical to the supplied reference copy. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL command) is chosen randomly. Expect diffs the `yb_srl` variants—but understand that they have no semantic significance.
