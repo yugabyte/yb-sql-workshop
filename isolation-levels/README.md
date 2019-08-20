@@ -1,6 +1,8 @@
 This code zip accompanies the blog post
 ["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements. Unzip it on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory.
 
+Enjoy! [bryn@yugabyte.com](mailto:bryn@yugabyte.com)
+
 # How the code is organized
 To avoid repeating code, I implemented everything to do with session management and SQL processing in a single module, `common.py`. It looks after the following.
 
@@ -49,4 +51,38 @@ Install the python PostgreSQL driver using the following command. You can get fu
 ```
 pip install psycopg2-binary
 ```
+## Sanity check
 
+Notice the file `run_all.sh`. Eith `cat` it or open it in your favorite text editor. Here's what it contains:
+```
+# ------------------------------------------------------------------------------------------
+# The "black/white marbles" scenario
+# -----------------------------------
+python black_white_marbles.py --db=yb --lvl=snp > black_white_marbles_output/yb_snp.txt
+python black_white_marbles.py --db=yb --lvl=srl > black_white_marbles_output/yb_srl.txt
+python black_white_marbles.py --db=pg --lvl=snp > black_white_marbles_output/pg_snp.txt
+python black_white_marbles.py --db=pg --lvl=srl > black_white_marbles_output/pg_srl.txt
+
+
+# ------------------------------------------------------------------------------------------
+# The "one or two admins" scenario
+# ----------------------------------
+python one_or_two_admins.py --db=yb --lvl=snp > one_or_two_admins_output/yb_snp.txt
+python one_or_two_admins.py --db=yb --lvl=srl > one_or_two_admins_output/yb_srl.txt
+python one_or_two_admins.py --db=pg --lvl=snp > one_or_two_admins_output/pg_snp.txt
+python one_or_two_admins.py --db=pg --lvl=srl > one_or_two_admins_output/pg_srl.txt
+
+
+# ------------------------------------------------------------------------------------------
+# The basic tests
+# ---------------
+python basic_tests.py --db=yb --lvl=snp --c_unq=n > basic_tests_output/yb_snp_no_c_unq.txt
+python basic_tests.py --db=yb --lvl=srl --c_unq=n > basic_tests_output/yb_srl_no_c_unq.txt
+python basic_tests.py --db=pg --lvl=snp --c_unq=n > basic_tests_output/pg_snp_no_c_unq.txt
+python basic_tests.py --db=pg --lvl=srl --c_unq=n > basic_tests_output/pg_srl_no_c_unq.txt
+
+python basic_tests.py --db=yb --lvl=snp --c_unq=y > basic_tests_output/yb_snp_c_unq.txt
+python basic_tests.py --db=yb --lvl=srl --c_unq=y > basic_tests_output/yb_srl_c_unq.txt
+python basic_tests.py --db=pg --lvl=snp --c_unq=y > basic_tests_output/pg_snp_c_unq.txt
+python basic_tests.py --db=pg --lvl=srl --c_unq=y > basic_tests_output/pg_srl_c_unq.txt
+```
