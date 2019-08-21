@@ -4,7 +4,7 @@ Use that post to understand the high-level philosophy for the tests that this co
 ```
 /usr/local/yugabyte-1.3.1.0/bin/ysqlsh
 ```
-I did the same for `yb-ctl`
+I did the same for `yb-ctl`.
 
 Enjoy! [bryn@yugabyte.com](mailto:bryn@yugabyte.com)
 
