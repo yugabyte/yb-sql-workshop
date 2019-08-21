@@ -41,8 +41,8 @@ python --version
 My programs *should* work with Python 2—but I didn't test this.
 
 I used the
-[PyCharm Python IDE (Community Edition)](https://www.jetbrains.com/pycharm/download/#section=mac)
-to write my code. You might have your favorite IDE. I do recommend an IDE over `vi` or similar. A code-folding feature makes it hugely easier to navigate and to understand your code—and especially to study someone else's code.
+[PyCharm Python IDE](https://www.jetbrains.com/pycharm/download/#section=mac)
+(Community Edition) to write my code. You might have your favorite IDE. I do recommend an IDE over `vi` or similar. A code-folding feature makes it hugely easier to navigate and to understand your code—and especially to study someone else's code.
 
 ### Install the argparse module
 
