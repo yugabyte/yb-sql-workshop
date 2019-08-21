@@ -1,5 +1,5 @@
 This code zip accompanies the blog post
-["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements. Unzip it on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory.
+["Isolation levels in YugaByte DB’s YSQL"](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/). Use that post to understand the high-level philosophy for the tests that this code implements. Unzip `isolation-levels.zip` on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory.
 
 Enjoy! [bryn@yugabyte.com](mailto:bryn@yugabyte.com)
 
