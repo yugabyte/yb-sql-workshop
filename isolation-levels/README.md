@@ -103,10 +103,17 @@ You should find that, with one caveat, each file that you generate will be ident
 
 PostgreSQL, and therefore YugaByte DB, have a server-side `On/Off` feature called `AUTOCOMMIT`. The default setting for this is `On`. And it means what it says. With this setting, the server automatically starts a transaction before every new SQL command that it recieves and it issues the `commit` command immediately after this client-submitted SQL statement finishes. (The `commit` command has the effect of the `rollback` command following a SQL command causes an error.) The `On` default setting helps *ad hoc* work at the `ysqlsh` prompt, especially when you type a semantic error—or even a syntax error. If you do this during an ongoing transaction, then the transaction is left in a broken state and any subsequent SQL command causes an error that says that it won't have any effect until you issue `commit` or `rollback`.
 
-With `AUTOCOMMIT` set to `On`, you simply ivoke the `start transaction` command explicitly, just as you would if it were set to `Off`, when you want to execute a multi-command transaction. Having done this, you own the responsibility to issue `commit` or `rollback` to finish the transaction; the server won't do this for you.
+With `AUTOCOMMIT` set to `On`, you simply invoke the `start transaction` command explicitly, just as you would if it were set to `Off`, when you want to execute a multi-command transaction. Having done this, you own the responsibility to issue `commit` or `rollback` to finish the transaction; the server won't do thtisis for you.
 
-I decided always to set `AUTOCOMMIT` to `On` for all my tests. (The `psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that "ordinary" SQL commands that would, when `AUTOCOMMIT` id `Off` start a transaction at the sessions default isolation level, don't do this but rather are individually automatically committed. Tis is never a problem when you write application code because you always want to set the desired isolation level for all transactions—even those that have just a single SQL command.
+I decided always to set `AUTOCOMMIT` to `On` for all my tests. (`psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that "ordinary" SQL commands that would, when `AUTOCOMMIT` is `Off` start a transaction at the sessions default isolation level, don't do this but rather are individually automatically committed. This is never a problem when you write application code because you always want to set the desired isolation level for all transactions—even those that have just a single SQL command.
 
 # The tests done at the `ysqlsh` prompt
 
-*To_do*
+Look for the two subdirectories `basic_tests_ysqlsh_companion` and `retry_loop_ysqlsh_companion`.
+
+## The `ysqlsh` companion tests for the tests described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable isolation levels"*.
+
+These tests are in the `basic_tests_ysqlsh_companion` subdirectory. Notice these files: `blue_1.sql`, `red_1.sql`, `blue_2.sql`, `red_2.sql`, `blue_3.sql`, `red_3.sql`, and `blue_4.sql`. Run them in this order at the prompt of two concurrent `ysqlsh` sessions. Run the `blue*` files in one session and the `red*` files in the other. (I found it convenient to set the backround color of each of the terminal windows appropraitely.)
+
+
+
