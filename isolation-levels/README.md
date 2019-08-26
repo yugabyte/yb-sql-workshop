@@ -25,7 +25,7 @@ I want to detect a serialization error as a normal, if arguably regrettable, exc
 
 The common module’s API has procedures to create a session and return a handle for it, to terminate a session, to commit in the specified session, to rollback in the specified session, and to execute a specified SQL text in the specified session. To keep the code simple, there is no provision for binding values to prepared statements, or for fetching and showing the results of a “select” command. Rather, because different “select” commands specify different columns with query-specific datatypes, fetching and showing the results is left to the use-case-specific module that uses the common module’s services. It can do this via the session’s handle.
 
-There are therefore three Python source files that include `common.py`: `black_white_marbles.py`, `one_or_two_admins.py`, and `basic_tests.py`.
+There are therefore four Python source files that include `common.py`: `black_white_marbles.py`, `one_or_two_admins.py`,  `basic_tests.py`, and `retry_loop.py`.
 
 Each use-case-specific module has command-line options to specify the isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases.
 
