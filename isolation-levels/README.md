@@ -125,7 +125,7 @@ Also, before running the tests, read `blue_2.sql` and `red_2.sql`. You'll see th
 ```
 Uncomment one of these rows to choose the desired test in each of the two files.
 
-## The ysqlsh companion files for the `retry_loop.py` program
+## The ysqlsh companion files for the retry_loop.py program
 
 These files set up the concurrent pending transaction so that `retry_loop.py` will have the intended demonstration effect. The demonstration is described in the section *"How to handle serialization errors (retry)"*. The files are in the `retry_loop_ysqlsh_companion` subdirectory.
 
