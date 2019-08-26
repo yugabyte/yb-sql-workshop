@@ -107,11 +107,11 @@ With `AUTOCOMMIT` set to `On`, you simply invoke the `start transaction` command
 
 I decided always to set `AUTOCOMMIT` to `On` for all my tests. (`psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that "ordinary" SQL commands that would, when `AUTOCOMMIT` is `Off` start a transaction at the sessions default isolation level, don't do this but rather are individually automatically committed. This is never a problem when you write application code because you always want to set the desired isolation level for all transactions—even those that have just a single SQL command.
 
-# The tests done at the `ysqlsh` prompt
+# The tests done at the ysqlsh prompt
 
 Look for the two subdirectories `basic_tests_ysqlsh_companion` and `retry_loop_ysqlsh_companion`.
 
-## The `ysqlsh` companion tests for the basic tests
+## The ysqlsh companion tests for the basic tests
 
 These tests are described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable isolation levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
 
@@ -125,7 +125,7 @@ Also, before running the tests, read `blue_2.sql` and `red_2.sql`. You'll see th
 ```
 Uncomment one of these rows to choose the desired test in each of the two files.
 
-## The `ysqlsh` companion files for the `retry_loop.py` program
+## The ysqlsh companion files for the `retry_loop.py` program
 
 These files set up the concurrent pending transaction so that `retry_loop.py` will have the intended demonstration effect. The demonstration is described in the section *"How to handle serialization errors (retry)"*. They files are in the `retry_loop_ysqlsh_companion` subdirectory.
 
