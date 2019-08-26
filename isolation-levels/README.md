@@ -135,6 +135,6 @@ python retry_loop.py --db=yb --lvl=srl > retry_loop_output/yb_srl.txt
 ```
 When it exits, issue `commit` at the `ysqlsh` prompt.
 
-Repeat these three steps (`run_all.sql` at the `ysqlsh` prompt, run `retry_loop.py` in the second terminal window, and then `commit` back at at the `ysqlsh` prompt) many times to observe the variations in outcome. You might like to run `show_admins.sql` after this final `commit`. You'll see that no matter which session suffers the serialization error, the "one or two admins" assertion always holds true. Of course, sometimes the surviving Admin is Mary, and sometimes it's John.
+Repeat these three steps (`run_all.sql` at the `ysqlsh` prompt, run `retry_loop.py` in the second terminal window, and then `commit` back at the `ysqlsh` prompt) many times to observe the variations in outcome. You might like to run `show_admins.sql` after this final `commit`. You'll see that no matter which session suffers the serialization error, the "one or two admins" assertion always holds true. Of course, sometimes the surviving Admin is Mary, and sometimes it's John.
 
 
