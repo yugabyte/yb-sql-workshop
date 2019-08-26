@@ -31,10 +31,10 @@ Each use-case-specific module has command-line options to specify the isolation 
 
 ## How to run the programs
 
-I did all my tesing on my MacBook using macOS Mojave Version 10.14.6. And I used YugaByte DB Version 1.3.1. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
+I did all my testing on my MacBook using macOS Mojave Version 10.14.6. And I used YugaByte DB Version 1.3.1. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
 [Quick Start guide](https://docs.yugabyte.com/latest/quick-start/install/).
 
-Some experience of writing and running Python programs will help you, but you have to understand very little just to run my programs. I used I used Python 3 to develop and to test my programs. Check which version you have thus:
+Some experience of writing and running Python programs will help you, but you have to understand very little just to run my programs. I used Python 3 to develop and to test my programs. Check which version you have thus:
 ```
 python --version
 ```
