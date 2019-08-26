@@ -46,7 +46,7 @@ I used the
 
 ### Install the argparse module
 
-Install the argparse module using the following command.
+Install the `argparse` module using the following command.
 ```
 pip install argparse
 ```
