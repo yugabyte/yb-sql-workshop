@@ -127,7 +127,7 @@ Uncomment one of these rows to choose the desired test in each of the two files.
 
 ## The ysqlsh companion files for the `retry_loop.py` program
 
-These files set up the concurrent pending transaction so that `retry_loop.py` will have the intended demonstration effect. The demonstration is described in the section *"How to handle serialization errors (retry)"*. They files are in the `retry_loop_ysqlsh_companion` subdirectory.
+These files set up the concurrent pending transaction so that `retry_loop.py` will have the intended demonstration effect. The demonstration is described in the section *"How to handle serialization errors (retry)"*. The files are in the `retry_loop_ysqlsh_companion` subdirectory.
 
 Start `ysqlsh` in one session and connect to YugaByte DB. Then run the file `run_all.sql`' Then in a second terminal window, execute this command:
 ```
