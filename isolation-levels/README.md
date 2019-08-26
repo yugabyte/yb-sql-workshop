@@ -93,7 +93,7 @@ python basic_tests.py --db=yb --lvl=srl --c_unq=y > basic_tests_output/yb_srl_c_
 python basic_tests.py --db=pg --lvl=snp --c_unq=y > basic_tests_output/pg_snp_c_unq.txt
 python basic_tests.py --db=pg --lvl=srl --c_unq=y > basic_tests_output/pg_srl_c_unq.txt
 ```
-This will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided rerference copies of the output on subdirectories of these directories. Run it with the following command:
+This will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided read-only reference copies of the output on subdirectories of these directories. Run it with the following command:
 ```
 source run_all.sh
 ```
