@@ -21,13 +21,13 @@ To avoid repeating code, I implemented everything to do with session management 
 
 * Session creation and termination.
 
-* Executing SQL statements, printing, for each execution, an informal plain English version translation. (Setting the serialization level is done by executing a SQL statement.)
+* Executing SQL statements—printing, for each execution, an informal plain English version translation. (Setting the serialization level is done by executing a SQL statement.)
 
 * Committing in the absence of error, and reporting this.
 
 * Detecting a serialization error, rolling back, and reporting this.
 
-I want to detect a serialization error as a normal, if arguably regrettable, exception, that I handle and then let my program continue. I need to do this to make the output optimally readable. However, it would be meaningless to attempt to execute any of the subsequent SQL statements that implement the programmed steps of a transaction after any one statement execution has suffered a serialization error. Therefore I set a flag so that I can turn such attempts into no-ops. Of course, a normal program—rather than one written as a teaching aid—would simply abort a transaction immediately on detecting a serialization error and attempt a retry.
+I want to detect a serialization error as a normal, if arguably regrettable, exception, that I handle and then let my program continue. I need to do this to make the output optimally readable. However, it would be meaningless to attempt to execute any of the subsequent SQL statements that implement the programmed steps of a transaction after any one statement execution has suffered a serialization error. Therefore I set a flag so that I can turn such attempts into no-ops. Of course, a normal program, rather than one written as a teaching aid, would simply abort a transaction immediately on detecting a serialization error and attempt a retry.
 
 The common module’s API has procedures to create a session and return a handle for it, to terminate a session, to commit in the specified session, to rollback in the specified session, and to execute a specified SQL text in the specified session. To keep the code simple, there is no provision for binding values to prepared statements, or for fetching and showing the results of executing a “select” statement. Rather, because different “select” statements specify different columns with query-specific datatypes, fetching and showing the results is left to the use-case-specific module that uses the common module’s services. It can do this via the session’s handle.
 
@@ -60,7 +60,7 @@ Run this either at the o/s prompt or at the prompt of your virtual Python enviro
 
 ### Install the psycopg2 driver
 
-Install the python PostgreSQL driver using the following command. You can get further details for the driver [here](https://pypi.org/project/psycopg2/). Notice that it says "Psycopg 2 is both Unicode and Python 3 friendly." 
+Install the python PostgreSQL driver using the following command. You can get further details for the driver [here](https://pypi.org/project/psycopg2/). Notice that it says "Psycopg 2 is... Python 3 friendly." 
 ```
 pip install psycopg2-binary
 ```
@@ -103,13 +103,13 @@ This will exercise every combination of the degrees of freedom that each of my t
 ```
 source run_all.sh
 ```
-You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs the `yb_srl` variants—but understand that they have no semantic significance.
+You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs for the `yb_srl` variants—but understand that they have no semantic significance.
 
 ## About `AUTOCOMMIT`
 
-PostgreSQL, and therefore YugaByte DB, have a server-side `On/Off` feature called `AUTOCOMMIT`. The default setting for this is `On`. And it means what it says. With this setting, the server automatically starts a transaction before every new SQL statement that it receives and it executes a `commit` immediately after this client-submitted SQL statement finishes. (The `commit` has the same effect as `rollback` following a SQL statement execution that causes an error.) The `On` default setting helps *ad hoc* work at the `ysqlsh` prompt, especially when you type a semantic error—or even a syntax error. If you do this during an ongoing transaction, then the transaction is left in a broken state and the attempt to execute any subsequent SQL staement causes an error that says that it won't have any effect until you issue `commit` or `rollback`.
+PostgreSQL, and therefore YugaByte DB, have a server-side `On/Off` feature called `AUTOCOMMIT`. The default setting for this is `On`. And it means what it says. With this setting, the server automatically starts a transaction before every new ordinary SQL statement that it receives and it executes a `commit` immediately after this client-submitted SQL statement finishes. (The `commit` has the same effect as `rollback` following a SQL statement execution that causes an error.) The `On` default setting helps *ad hoc* work at the `ysqlsh` prompt, especially when you type a semantic error—or even a syntax error. If you do this during an ongoing transaction, then the transaction is left in a broken state and the attempt to execute any subsequent SQL statement causes an error that says that it won't have any effect until you issue `commit` or `rollback`.
 
-With `AUTOCOMMIT` set to `On`, you simply execute the `start transaction` statement explicitly, specifying the desired isolation level, just as you would if it were set to `Off`, when you want to execute a multi-statement transaction. Having done this, you own the responsibility to issue `commit` or `rollback` to finish the transaction; the server won't do thtisis for you.
+With `AUTOCOMMIT` set to `On`, you simply execute the `start transaction` statement explicitly, specifying the desired isolation level, just as you would if it were set to `Off`, when you want to execute a multi-statement transaction. Having done this, you own the responsibility to issue `commit` or `rollback` to finish the transaction; the server won't do this for you.
 
 I decided always to set `AUTOCOMMIT` to `On` for all my tests. (`psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that executing "ordinary" SQL statements that would, when `AUTOCOMMIT` is `Off` start a transaction at the session's default isolation level, don't do this but rather are individually automatically committed. This is never a problem when you write application code because you always want to set the desired isolation level explicitly for all transactions—even those that have just a single SQL statement.
 
@@ -119,7 +119,7 @@ Look for the two subdirectories `basic_tests_ysqlsh_companion` and `retry_loop_y
 
 ## The ysqlsh companion tests for the basic tests
 
-These tests are described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable transaction isolation levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
+These tests are described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable isolation levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
 
 Notice these files: `blue_1.sql`, `red_1.sql`, `blue_2.sql`, `red_2.sql`, `blue_3.sql`, `red_3.sql`, and `blue_4.sql`. Run them in this order at the prompts of two concurrent `ysqlsh` sessions, running the `blue*` files in one session and the `red*` files in the other. (I found it convenient to set the backround color of each of the terminal windows appropriately.) But before you do this, read `blue_1.sql` and `red_1.sql`. You'll see the the first drops and creates the test table and that both invoke `set_isolation_level.sql`. Edit this to choose the isolation level at which to run the tests.
 
