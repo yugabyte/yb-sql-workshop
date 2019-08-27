@@ -1,4 +1,5 @@
-This code zip accompanies the three-part blog post "Isolation levels in YugaByte DB’s YSQL", here:
+This code zip accompanies the three-part blog post "Distributed SQL Transaction Isolation
+in YugaByte DB", here:
 
 * [Part One](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
 * [Part Two](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
