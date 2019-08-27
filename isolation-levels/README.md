@@ -32,7 +32,7 @@ The common module’s API has procedures to create a session and return a handle
 
 There are therefore four Python source files that include `common.py`: `black_white_marbles.py`, `one_or_two_admins.py`,  `basic_tests.py`, and `retry_loop.py`.
 
-Each use-case-specific module has command-line options to specify the isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases.
+Each use-case-specific module has command-line options to specify the transaction isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases.
 
 ## How to run the programs
 
@@ -110,7 +110,7 @@ PostgreSQL, and therefore YugaByte DB, have a server-side `On/Off` feature calle
 
 With `AUTOCOMMIT` set to `On`, you simply invoke the `start transaction` command explicitly, just as you would if it were set to `Off`, when you want to execute a multi-command transaction. Having done this, you own the responsibility to issue `commit` or `rollback` to finish the transaction; the server won't do thtisis for you.
 
-I decided always to set `AUTOCOMMIT` to `On` for all my tests. (`psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that "ordinary" SQL commands that would, when `AUTOCOMMIT` is `Off` start a transaction at the sessions default isolation level, don't do this but rather are individually automatically committed. This is never a problem when you write application code because you always want to set the desired isolation level for all transactions—even those that have just a single SQL command.
+I decided always to set `AUTOCOMMIT` to `On` for all my tests. (`psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that "ordinary" SQL commands that would, when `AUTOCOMMIT` is `Off` start a transaction at the sessions default isolation level, don't do this but rather are individually automatically committed. This is never a problem when you write application code because you always want to set the desired isolation level explicitly for all transactions—even those that have just a single SQL command.
 
 # The tests done at the ysqlsh prompt
 
@@ -118,11 +118,11 @@ Look for the two subdirectories `basic_tests_ysqlsh_companion` and `retry_loop_y
 
 ## The ysqlsh companion tests for the basic tests
 
-These tests are described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable isolation levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
+These tests are described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable transaction isolation levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
 
 Notice these files: `blue_1.sql`, `red_1.sql`, `blue_2.sql`, `red_2.sql`, `blue_3.sql`, `red_3.sql`, and `blue_4.sql`. Run them in this order at the prompts of two concurrent `ysqlsh` sessions, running the `blue*` files in one session and the `red*` files in the other. (I found it convenient to set the backround color of each of the terminal windows appropriately.) But before you do this, read `blue_1.sql` and `red_1.sql`. You'll see the the first drops and creates the test table and that both invoke `set_isolation_level.sql`. Edit this to choose the isolation level at which to run the tests.
 
-Also, before running the tests, read `blue_2.sql` and `red_2.sql`. You'll see that each has three lines exoplified by these from `blue_2.sql`:
+Also, before running the tests, read `blue_2.sql` and `red_2.sql`. You'll see that each has three lines exmplified by these from `blue_2.sql`:
 ```
    \i insert_same_row/red_2.sql
 -- \i update_same_row/red_2.sql
@@ -141,5 +141,3 @@ python retry_loop.py --db=yb --lvl=srl > retry_loop_output/yb_srl.txt
 When it exits, issue `commit` at the `ysqlsh` prompt.
 
 Repeat these three steps (`run_all.sql` at the `ysqlsh` prompt, run `retry_loop.py` in the second terminal window, and then `commit` back at the `ysqlsh` prompt) many times to observe the variations in outcome. You might like to run `show_admins.sql` after this final `commit`. You'll see that no matter which session suffers the serialization error, the "one or two admins" assertion always holds true. Of course, sometimes the surviving Admin is Mary, and sometimes it's John.
-
-
