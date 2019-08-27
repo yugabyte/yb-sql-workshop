@@ -105,7 +105,7 @@ source run_all.sh
 ```
 You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs for the `yb_srl` variants—but understand that they have no semantic significance.
 
-## About `AUTOCOMMIT`
+## About AUTOCOMMIT
 
 PostgreSQL, and therefore YugaByte DB, have a server-side `On/Off` feature called `AUTOCOMMIT`. The default setting for this is `On`. And it means what it says. With this setting, the server automatically starts a transaction before every new ordinary SQL statement that it receives and it executes a `commit` immediately after this client-submitted SQL statement finishes. (The `commit` has the same effect as `rollback` following a SQL statement execution that causes an error.) The `On` default setting helps *ad hoc* work at the `ysqlsh` prompt, especially when you type a semantic error—or even a syntax error. If you do this during an ongoing transaction, then the transaction is left in a broken state and the attempt to execute any subsequent SQL statement causes an error that says that it won't have any effect until you issue `commit` or `rollback`.
 
