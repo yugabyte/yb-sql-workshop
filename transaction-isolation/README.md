@@ -130,15 +130,3 @@ Also, before running the tests, read `blue_2.sql` and `red_2.sql`. You'll see th
 -- \i delete_same_row/red_2.sql
 ```
 Uncomment one of these rows to choose the desired test in each of the two files.
-
-## The ysqlsh companion files for the retry_loop.py program
-
-These files set up the concurrent pending transaction so that `retry_loop.py` will have the intended demonstration effect. The demonstration is described in the section *"How to handle serialization errors (retry)"*. The files are in the `retry_loop_ysqlsh_companion` subdirectory.
-
-Start `ysqlsh` in one session and connect to YugaByte DB. Then run the file `run_all.sql`'. Then in a second terminal window, execute this command:
-```
-python retry_loop.py --db=yb --lvl=srl > retry_loop_output/yb_srl.txt
-```
-When it exits, issue `commit` at the `ysqlsh` prompt.
-
-Repeat these three steps (`run_all.sql` at the `ysqlsh` prompt, run `retry_loop.py` in the second terminal window, and then `commit` back at the `ysqlsh` prompt) many times to observe the variations in outcome. You might like to run `show_admins.sql` after this final `commit`. You'll see that no matter which session suffers the serialization error, the "one or two admins" assertion always holds true. Of course, sometimes the surviving Admin is Mary, and sometimes it's John.
