@@ -113,11 +113,7 @@ With `AUTOCOMMIT` set to `On`, you simply execute the `start transaction` statem
 
 I decided always to set `AUTOCOMMIT` to `On` for all my tests. (`psycopg2` has a procedure for setting this.) The only "penalty" for adopting this practice is that executing "ordinary" SQL statements that would, when `AUTOCOMMIT` is `Off` start a transaction at the session's default isolation level, don't do this but rather are individually automatically committed. This is never a problem when you write application code because you always want to set the desired isolation level explicitly for all transactions—even those that have just a single SQL statement.
 
-# The tests done at the ysqlsh prompt
-
-Look for the two subdirectories `basic_tests_ysqlsh_companion` and `retry_loop_ysqlsh_companion`.
-
-## The ysqlsh companion tests for the basic tests
+# The ysqlsh companion tests for the basic tests
 
 These tests are described in the section *"A selection of basic tests designed to strengthen your understanding of the snapshot and serializable levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
 
