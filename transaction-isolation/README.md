@@ -121,8 +121,8 @@ Notice these files: `blue_1.sql`, `red_1.sql`, `blue_2.sql`, `red_2.sql`, `blue_
 
 Also, before running the tests, read `blue_2.sql` and `red_2.sql`. You'll see that each has three lines exmplified by these from `blue_2.sql`:
 ```
-   \i insert_same_row/red_2.sql
--- \i update_same_row/red_2.sql
--- \i delete_same_row/red_2.sql
+   \i insert_same_row/blue_2.sql
+-- \i update_same_row/blue_2.sql
+-- \i delete_same_row/blue_2.sql
 ```
 Uncomment one of these rows to choose the desired test in each of the two files.
