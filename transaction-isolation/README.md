@@ -119,7 +119,7 @@ Look for the two subdirectories `basic_tests_ysqlsh_companion` and `retry_loop_y
 
 ## The ysqlsh companion tests for the basic tests
 
-These tests are described in the section *"A selection of atomic tests designed to strengthen your understanding of the snapshot and serializable levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
+These tests are described in the section *"A selection of basic tests designed to strengthen your understanding of the snapshot and serializable levels"*. They are implemented by files in the `basic_tests_ysqlsh_companion` subdirectory.
 
 Notice these files: `blue_1.sql`, `red_1.sql`, `blue_2.sql`, `red_2.sql`, `blue_3.sql`, `red_3.sql`, and `blue_4.sql`. Run them in this order at the prompts of two concurrent `ysqlsh` sessions, running the `blue*` files in one session and the `red*` files in the other. (I found it convenient to set the backround color of each of the terminal windows appropriately.) But before you do this, read `blue_1.sql` and `red_1.sql`. You'll see the the first drops and creates the test table and that both invoke `set_isolation_level.sql`. Edit this to choose the isolation level at which to run the tests.
 
