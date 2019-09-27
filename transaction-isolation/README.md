@@ -95,7 +95,7 @@ source run_all.sh
 ```
 You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs for the `yb_srl` variants—but understand that they have no semantic significance.
 
-I've also provided and retry_loop_manual_commands.sh to run `retry_loop.py`. Don't simply execute this mechanically. rather, you must copy-and-paste the command with `--mode=setup_two_admins` or `--mode=setup_one_admin` according to whuch test you'll run. Then you must edit the commmands to start the two concurrent sessions to edit `--start_at="<yyyy-mm-dd hh24:mi:ss>"` to set a start time shorly after when you'll be able to start the two concurrent program invocations. I explain the purpose of this in the bg post.
+I've also provided `retry_loop_manual_commands.sh` to run `retry_loop.py`. Don't simply execute this mechanically. rather, you must copy-and-paste the command with `--mode=setup_two_admins` or `--mode=setup_one_admin` according to whuch test you'll run. Then you must edit the commmands to start the two concurrent sessions to edit `--start_at="<yyyy-mm-dd hh24:mi:ss>"` to set a start time shorly after when you'll be able to start the two concurrent program invocations. I explain the purpose of this in the bg post.
 
 ## About AUTOCOMMIT
 
