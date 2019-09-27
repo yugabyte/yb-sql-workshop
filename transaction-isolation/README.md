@@ -70,44 +70,33 @@ pip install psycopg2-binary
 ```
 ### Sanity check
 
-Notice the file `run_all.sh`. Either `cat` it or open it in your favorite text editor. Here's what it contains:
+Notice the file `run_all.sh`. Either `cat` it or open it in your favorite text editor. Here's an sample of what it contains:
 ```
 # ------------------------------------------------------------------------------------------
 # The "black/white marbles" scenario
 # ----------------------------------
-python black_white_marbles.py --db=yb --lvl=snp > black_white_marbles_output/yb_snp.txt
 python black_white_marbles.py --db=yb --lvl=srl > black_white_marbles_output/yb_srl.txt
-python black_white_marbles.py --db=pg --lvl=snp > black_white_marbles_output/pg_snp.txt
+python black_white_marbles.py --db=yb --lvl=snp > black_white_marbles_output/yb_snp.txt
 python black_white_marbles.py --db=pg --lvl=srl > black_white_marbles_output/pg_srl.txt
-
+python black_white_marbles.py --db=pg --lvl=snp > black_white_marbles_output/pg_snp.txt
 
 # ------------------------------------------------------------------------------------------
 # The "one or two admins" scenario
 # --------------------------------
-python one_or_two_admins.py --db=yb --lvl=snp > one_or_two_admins_output/yb_snp.txt
 python one_or_two_admins.py --db=yb --lvl=srl > one_or_two_admins_output/yb_srl.txt
-python one_or_two_admins.py --db=pg --lvl=snp > one_or_two_admins_output/pg_snp.txt
+python one_or_two_admins.py --db=yb --lvl=snp > one_or_two_admins_output/yb_snp.txt
 python one_or_two_admins.py --db=pg --lvl=srl > one_or_two_admins_output/pg_srl.txt
-
+python one_or_two_admins.py --db=pg --lvl=snp > one_or_two_admins_output/pg_snp.txt
 
 # ------------------------------------------------------------------------------------------
-# The basic tests
-# ---------------
-python basic_tests.py --db=yb --lvl=snp --c_unq=n > basic_tests_output/yb_snp_no_c_unq.txt
-python basic_tests.py --db=yb --lvl=srl --c_unq=n > basic_tests_output/yb_srl_no_c_unq.txt
-python basic_tests.py --db=pg --lvl=snp --c_unq=n > basic_tests_output/pg_snp_no_c_unq.txt
-python basic_tests.py --db=pg --lvl=srl --c_unq=n > basic_tests_output/pg_srl_no_c_unq.txt
-
-python basic_tests.py --db=yb --lvl=snp --c_unq=y > basic_tests_output/yb_snp_c_unq.txt
-python basic_tests.py --db=yb --lvl=srl --c_unq=y > basic_tests_output/yb_srl_c_unq.txt
-python basic_tests.py --db=pg --lvl=snp --c_unq=y > basic_tests_output/pg_snp_c_unq.txt
-python basic_tests.py --db=pg --lvl=srl --c_unq=y > basic_tests_output/pg_srl_c_unq.txt
 ```
-This will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided read-only reference copies of the output on subdirectories of these directories. Run it with the following command:
+It has corresponding entries for `basic_tests.py`. Its commands will exercise every combination of the degrees of freedom that each of my tests supports. You can see where it writes its output. Notice that I've provided read-only reference copies of the output on subdirectories of these directories. Run it with the following command:
 ```
 source run_all.sh
 ```
 You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs for the `yb_srl` variants—but understand that they have no semantic significance.
+
+I've also provided and retry_loop_manual_commands.sh to run `retry_loop.py`. Don't simply execute this mechanically. rather, you must copy-and-paste the command with `--mode=setup_two_admins` or `--mode=setup_one_admin` according to whuch test you'll run. Then you must edit the commmands to start the two concurrent sessions to edit `--start_at="<yyyy-mm-dd hh24:mi:ss>"` to set a start time shorly after when you'll be able to start the two concurrent program invocations. I explain the purpose of this in the bg post.
 
 ## About AUTOCOMMIT
 
