@@ -1,5 +1,3 @@
-**NOTE: This needs to be updated. I made several changes since I wrote it.**
-
 This code zip accompanies the three-part blog post *"Distributed SQL Transaction Isolation
 in YugaByte DB"*, here:
 
