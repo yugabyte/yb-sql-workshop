@@ -7,11 +7,11 @@ in YugaByte DB"*, here:
 * [Part Two](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
 * [Part Three](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
 
-Use that post to understand the high-level philosophy for the tests that this code implements. Unzip `isolation-levels.zip` on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory. I found it convenient to create a symbolic link on `/usr/local/bin/ysql` to the shipped program here:
+Use that post to understand the high-level philosophy for the tests that this code implements. Unzip `isolation-levels.zip` on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory. I use using macOS Mojave and found it convenient to create a symbolic link on `/usr/local/bin/ysql` to the shipped program here:
 ```
-/usr/local/yugabyte-1.3.1.0/bin/ysqlsh
+/usr/local/yugabyte-1.2.0.0/bin/ysqlsh
 ```
-I did the same for `yb-ctl`.
+I did the same for `yb-ctl`. You can do something similar in whatever environment you use.
 
 Enjoy! [bryn@yugabyte.com](mailto:bryn@yugabyte.com)
 
@@ -19,7 +19,7 @@ Enjoy! [bryn@yugabyte.com](mailto:bryn@yugabyte.com)
 
 ## How the code is organized
 
-To avoid repeating code, I implemented everything to do with session management and SQL processing in a single module, `common.py`. It looks after the following.
+To avoid repeating code, I implemented everything to do with session management and SQL processing in a single module, `cmn.py`. It looks after the following.
 
 * Session creation and termination.
 
@@ -31,11 +31,13 @@ To avoid repeating code, I implemented everything to do with session management 
 
 I want to detect a serialization error as a normal, if arguably regrettable, exception, that I handle and then let my program continue. I need to do this to make the output optimally readable. However, it would be meaningless to attempt to execute any of the subsequent SQL statements that implement the programmed steps of a transaction after any one statement execution has suffered a serialization error. Therefore I set a flag so that I can turn such attempts into no-ops. Of course, a normal program, rather than one written as a teaching aid, would simply abort a transaction immediately on detecting a serialization error and attempt a retry.
 
-The common module’s API has procedures to create a session and return a handle for it, to terminate a session, to commit in the specified session, to rollback in the specified session, and to execute a specified SQL text in the specified session. To keep the code simple, there is no provision for binding values to prepared statements, or for fetching and showing the results of executing a “select” statement. Rather, because different “select” statements specify different columns with query-specific datatypes, fetching and showing the results is left to the use-case-specific module that uses the common module’s services. It can do this via the session’s handle.
+The common module’s API has procedures to create a session and return a handle for it, to terminate a session, to commit in the specified session, to rollback in the specified session, and to execute a specified SQL text in the specified session. It also wraps this behind an API that creates two sessions that will interleave the esecution of the individual SQL statements that inmplement multi-statement transactions.
 
-There are therefore four Python source files that include `common.py`: `black_white_marbles.py`, `one_or_two_admins.py`,  `basic_tests.py`, and `retry_loop.py`.
+To keep the code simple, there is no provision for binding values to prepared statements, or for fetching and showing the results of executing a “select” statement. Rather, because different “select” statements specify different columns with query-specific datatypes, fetching and showing the results is left to the use-case-specific module that uses the common module’s services. It can do this via the session’s handle.
 
-Each use-case-specific module has command-line options to specify the transaction isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases.
+There are therefore four Python source files that import `cmn.py`: `black_white_marbles.py`, `one_or_two_admins.py`,  `basic_tests.py`, and `retry_loop.py`. Again to avoid repeating code, and because both `one_or_two_admins.py` and `retry_loop.py` use the same "one or two Admins" scenario, these two programs import `admins_cmn.py`. This implements the SQL statements and common operations that these two programs rely on.
+
+Each use-case-specific module has command-line arguments to specify the transaction isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases. Some of the programs have further program-specific command-line arguments.
 
 ## How to run the programs
 
