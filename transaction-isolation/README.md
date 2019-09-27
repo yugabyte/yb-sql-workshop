@@ -1,11 +1,10 @@
-This code zip accompanies the three-part blog post *"Distributed SQL Transaction Isolation
-in YugaByte DB"*, here:
+This code zip accompanies the three-part blog post *"Transaction Isolation in Distributed SQL Databases"*, here:
 
 * [Part One](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
 * [Part Two](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
 * [Part Three](https://blog.yugabyte.com/relational-data-modeling-with-foreign-keys-in-a-distributed-sql-database/)
 
-Use that post to understand the high-level philosophy for the tests that this code implements. Unzip `isolation-levels.zip` on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory. I use using macOS Mojave and found it convenient to create a symbolic link on `/usr/local/bin/ysql` to the shipped program here:
+Use that post to understand the high-level philosophy for the tests that this code implements. Unzip `isolation-levels.zip` on any convenient directory. But do make sure that you can invoke `ysqlsh` when this is your working directory. I use macOS Mojave and found it convenient to create a symbolic link on `/usr/local/bin/ysql` to the shipped program here:
 ```
 /usr/local/yugabyte-1.2.0.0/bin/ysqlsh
 ```
