@@ -41,6 +41,8 @@ Each use-case-specific module has command-line arguments to specify the transact
 I did all my testing on my MacBook using macOS Mojave Version 10.14.6. And I used YugaByte DB Version 1.2.0. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
 [Quick Start guide](https://docs.yugabyte.com/latest/quick-start/install/).
 
+I used the bare `yb-ctl create` to create a single node cluster (with, therefore, RF=1).
+
 Some experience of writing and running Python programs will help you, but you have to understand very little just to run my programs. I used Python 3 to develop and to test my programs. Check which version you have thus:
 ```
 python --version
