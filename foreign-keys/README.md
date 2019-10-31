@@ -16,4 +16,4 @@ This demonstrates the `delete` and `insert` statements shown in the blog post th
 You might like to run all of the four demo scripts, in order, and mechanically, simply by starting `do_all.sql` at the `ysqlsh` prompt. You can simply start it time and again. It always has the same effect.
 
 ### startup.sql
-Notice that it begins by starting `startup.sql`. This does no SQL but simply uses meta-commands to produce the quietest possible output. Comment it out if you don't like its effect.
+Notice that `do_all.sql` begins by starting `startup.sql`. This does no SQL but simply uses meta-commands to produce the quietest possible output. Comment it out if you don't like its effect.
