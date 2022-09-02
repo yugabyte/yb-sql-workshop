@@ -1,6 +1,6 @@
 ## Goal
 
-Explore RDBMS-like query support in YugaByte DB PostgreSQL. Note that you can perform all the steps below on a single machine (your laptop or desktop would be fine).
+Explore RDBMS-like query support in YugabyteDB PostgreSQL. Note that you can perform all the steps below on a single machine (your laptop or desktop would be fine).
 
 ## Agenda
 
@@ -10,7 +10,7 @@ This exercise emulates the example of an ecommerce site. We will create the foll
 * orders   : the orders representing the product purchases the users have performed
 * reviews  : reviews about products written by various people
 
-We will then use the SQL query functionality of YugaByte DB to answer some questions about the ecommerce site. This in turn will require RDBMS-like query capabilities, for example:
+We will then use the SQL query functionality of YugabyteDB to answer some questions about the ecommerce site. This in turn will require RDBMS-like query capabilities, for example:
 * Filter data using `WHERE` clauses
 * Join data between tables
 * Perform data aggregation using `GROUP BY`
@@ -28,7 +28,7 @@ You need the following in order to complete this exercise:
 
 ## Setup steps
 
-We will first setup YugaByte DB, create the necessary tables, import sample data and then setup Metabase to use these tables and show us some analytics.
+We will first setup YugabyteDB, create the necessary tables, import sample data and then setup Metabase to use these tables and show us some analytics.
 
 ### Step 1: Untar the necessary files
 
@@ -80,7 +80,7 @@ CREATE TABLE
 CREATE TABLE
 ```
 
-Open the YugaByte DB cluster page by browsing to http://localhost:7000/ and explore these tables.
+Open the YugabyteDB cluster page by browsing to http://localhost:7000/ and explore these tables.
 
 ### Step 3: Import the sample data
 
@@ -202,9 +202,9 @@ $ java -jar metabase.jar
 ```
 Next browse to http://IP_ADDRESS:3000 and continue with the installation. Remember to replace `IP_ADDRESS` with the ip address of your machine.
 
-### Point Metabase to the YugaByte DB table
+### Point Metabase to the YugabyteDB table
 
-You can do so by browsing to the admin page and clicking on the database tab. Here, you can set up a PostgreSQL database and point it at the YugaByte DB cluster we created above.
+You can do so by browsing to the admin page and clicking on the database tab. Here, you can set up a PostgreSQL database and point it at the YugabyteDB cluster we created above.
 
 ### Visualize queries
 
