@@ -34,11 +34,11 @@ To keep the code simple, there is no provision for binding values to prepared st
 
 There are therefore four Python source files that import `cmn.py`: `black_white_marbles.py`, `one_or_two_admins.py`,  `basic_tests.py`, and `retry_loop.py`. Again to avoid repeating code, and because both `one_or_two_admins.py` and `retry_loop.py` use the same "one or two Admins" scenario, these two modules import `admins_cmn.py`. This module implements the SQL statements and common operations that these two modules rely on.
 
-Each use-case-specific module has command-line arguments to specify the transaction isolation level (snapshot or serializable) and to specify the database (YugaByte DB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases. Some of the modules have further use-case-specific command-line arguments.
+Each use-case-specific module has command-line arguments to specify the transaction isolation level (snapshot or serializable) and to specify the database (YugabyteDB or PostgreSQL) to which to connect. The latter choice allows you to confirm that each of all the tests has the semantically same outcome in both databases. Some of the modules have further use-case-specific command-line arguments.
 
 ## How to run the programs
 
-I did all my testing on my MacBook using macOS Mojave Version 10.14.6. And I used YugaByte DB Version 1.2.0. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
+I did all my testing on my MacBook using macOS Mojave Version 10.14.6. And I used YugabyteDB Version 1.2.0. Don't use an earlier version! If you don't yet have this version, please follow these steps in the
 [Quick Start guide](https://docs.yugabyte.com/latest/quick-start/install/).
 
 I used the bare `yb-ctl create` to create a single node cluster (with, therefore, RF=1).
@@ -93,13 +93,13 @@ It has corresponding entries for `basic_tests.py`. Its commands will exercise ev
 ```
 source run_all.sh
 ```
-You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugaByte DB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs for the `yb_srl` variants—but understand that they have no semantic significance.
+You should find that, with one caveat, each file that you generate will be identical to its supplied reference counterpart. The caveat (as my blog post explains) is that when you get a serialization error using YugabyteDB, the point at which it occurs (in which session and at which SQL statement execution) is chosen randomly. Expect diffs for the `yb_srl` variants—but understand that they have no semantic significance.
 
 I've also provided `retry_loop_manual_commands.sh` to run `retry_loop.py`. Don't simply execute this mechanically. Rather, you must copy-and-paste the command that has `--mode=setup_two_admins` or `--mode=setup_one_admin` according to whuch test you'll run. Then you must edit the commmands to start the two concurrent sessions to edit `--start_at="<yyyy-mm-dd hh24:mi:ss>"` to set a start time shorly after when you'll be able to start the two concurrent program invocations. I explain the purpose of this in the bg post.
 
 ## About AUTOCOMMIT
 
-PostgreSQL, and therefore YugaByte DB, have a server-side `On/Off` feature called `AUTOCOMMIT`. The default setting for this is `On`. And it means what it says. With this setting, the server automatically starts a transaction before every new ordinary SQL statement that it receives and it executes a `commit` immediately after this client-submitted SQL statement finishes. (The `commit` has the same effect as `rollback` following a SQL statement execution that causes an error.) The `On` default setting helps *ad hoc* work at the `ysqlsh` prompt, especially when you type a semantic error—or even a syntax error. If you do this during an ongoing transaction, then the transaction is left in a broken state and the attempt to execute any subsequent SQL statement causes an error that says that it won't have any effect until you issue `commit` or `rollback`.
+PostgreSQL, and therefore YugabyteDB, have a server-side `On/Off` feature called `AUTOCOMMIT`. The default setting for this is `On`. And it means what it says. With this setting, the server automatically starts a transaction before every new ordinary SQL statement that it receives and it executes a `commit` immediately after this client-submitted SQL statement finishes. (The `commit` has the same effect as `rollback` following a SQL statement execution that causes an error.) The `On` default setting helps *ad hoc* work at the `ysqlsh` prompt, especially when you type a semantic error—or even a syntax error. If you do this during an ongoing transaction, then the transaction is left in a broken state and the attempt to execute any subsequent SQL statement causes an error that says that it won't have any effect until you issue `commit` or `rollback`.
 
 With `AUTOCOMMIT` set to `On`, you simply execute the `start transaction` statement explicitly, specifying the desired isolation level, just as you would if it were set to `Off`, when you want to execute a multi-statement transaction. Having done this, you own the responsibility to issue `commit` or `rollback` to finish the transaction; the server won't do this for you.
 
